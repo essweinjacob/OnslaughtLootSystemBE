@@ -13,8 +13,13 @@ public class ItemEntryController {
     @Autowired
     ItemEntryRepository itemEntryRepository;
 
-    @GetMapping("itemEntries")
-    public List <ItemEntry> getEntries() {
-        return this.itemEntryRepository.findAll();
+    @GetMapping("/itemEntries")
+    public List <ItemEntry> getAllEntries() {
+        return itemEntryRepository.getAllEntries();
+    }
+
+    @GetMapping("/uniqueItemNames")
+    public List <String> getUniqueItemNames() {
+        return itemEntryRepository.getUniqueItemNames();
     }
 }

@@ -17,16 +17,19 @@ public class ItemEntry {
     private String itemName;
     @Column(name="prioValue")
     private int prioValue;
+    @Column(name="hasItem")
+    private boolean hasItem;
 
     public ItemEntry(){
 
     }
 
-    public ItemEntry(String charName, String itemName, int prioValue) {
+    public ItemEntry(String charName, String itemName, int prioValue, boolean hasItem) {
         super();
         this.charName = charName;
         this.itemName = itemName;
         this.prioValue = prioValue;
+        this.hasItem = hasItem;
     }
 
     public String getCharName() {
@@ -51,5 +54,21 @@ public class ItemEntry {
 
     public void setPrioValue(int prioValue) {
         this.prioValue = prioValue;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public boolean isHasItem() {
+        return hasItem;
+    }
+
+    public void setHasItem(boolean hasItem) {
+        this.hasItem = hasItem;
     }
 }
