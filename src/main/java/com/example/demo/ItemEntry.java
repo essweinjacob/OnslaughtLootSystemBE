@@ -64,10 +64,6 @@ public class ItemEntry {
         return id;
     }
 
-    public boolean isHasItem() {
-        return hasItem;
-    }
-
     public void setHasItem(boolean hasItem) {
         this.hasItem = hasItem;
     }

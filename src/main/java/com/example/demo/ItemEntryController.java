@@ -13,11 +13,13 @@ public class ItemEntryController {
     @Autowired
     ItemEntryRepository itemEntryRepository;
 
+    // Gets all data from lootSheet sorted first by if the entity is marked as hasItem and second by Descending Prio Value
     @GetMapping("/itemEntries")
     public List <ItemEntry> getAllEntries() {
         return itemEntryRepository.getAllEntries();
     }
 
+    // Returns item names with no repeats
     @GetMapping("/uniqueItemNames")
     public List <String> getUniqueItemNames() {
         return itemEntryRepository.getUniqueItemNames();
