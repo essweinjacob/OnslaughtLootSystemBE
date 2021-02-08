@@ -24,4 +24,9 @@ public class ItemEntryController {
     public List <String> getUniqueItemNames() {
         return itemEntryRepository.getUniqueItemNames();
     }
+
+    @PutMapping("/updateLootSheet")
+    public void updateLootsheet(@RequestBody List<ItemEntry> itemEntries){
+        itemEntryRepository.updateLootsheet(itemEntries);
+    }
 }
