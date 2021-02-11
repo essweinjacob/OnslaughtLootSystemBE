@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.AttributeNode;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,17 @@ public class AttendanceController {
     }
 
     @PutMapping("/postUpdateAttendance")
-    public void updateAttendance(@RequestBody List<Attendance> attendance) {
+    public void updateAttendance(@RequestBody Attendance attendance) {
         attendanceRepository.updateAttendance(attendance);
+    }
+
+    @PutMapping("/putAddRaidDate")
+    public void addRaidDate(@RequestBody List<Attendance> attendance) {
+        attendanceRepository.addRaidDate(attendance);
+    }
+
+    @PutMapping("/removeRaidDate")
+    public void removeRateDate(@RequestBody String raidDate){
+        attendanceRepository.removeRaidDate(raidDate);
     }
 }

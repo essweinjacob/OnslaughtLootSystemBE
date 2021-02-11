@@ -15,12 +15,15 @@ public class Roster {
     @Column(name="charClass")
     private String charClass;
 
+    private int attendCount;
+
     public Roster(){}
 
-    public Roster(String charName, String charClass) {
+    public Roster(String charName, String charClass, int attendCount) {
         super();
         this.charName = charName;
         this.charClass = charClass;
+        this.attendCount = attendCount;
     }
 
     public int getCharId() {
@@ -45,5 +48,13 @@ public class Roster {
 
     public void setCharClass(String charClass) {
         this.charClass = charClass;
+    }
+
+    public int getAttendCount() {
+        return attendCount;
+    }
+
+    public void setAttendCount(int attendCount) {
+        this.attendCount = attendCount;
     }
 }

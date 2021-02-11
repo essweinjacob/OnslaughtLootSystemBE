@@ -19,14 +19,15 @@ public class ItemEntryRepository{
     JdbcTemplate jdbcTemplate;
 
     public List<ItemEntry> getAllEntries(){
-        return jdbcTemplate.query("select charName, itemName, prioValue, hasItem from lootsheet left join roster ON lootsheet.charID = roster.charID order by hasItem, prioValue DESC;", new RowMapper<ItemEntry>(){
+        return jdbcTemplate.query("select charName, roster.charId, itemName, prioValue, hasItem from lootsheet left join roster ON lootsheet.charID = roster.charID order by hasItem, prioValue DESC;", new RowMapper<ItemEntry>(){
             @Override
             public ItemEntry mapRow(ResultSet rs, int rn) throws SQLException{
                 ItemEntry ie = new ItemEntry();
                 ie.setCharName(rs.getString(1));
-                ie.setItemName(rs.getString(2));
-                ie.setPrioValue(rs.getInt(3));
-                ie.setHasItem(rs.getBoolean(4));
+                ie.setCharId(rs.getInt(2));
+                ie.setItemName(rs.getString(3));
+                ie.setPrioValue(rs.getInt(4));
+                ie.setHasItem(rs.getBoolean(5));
                 return ie;
             }
         });
@@ -38,22 +39,7 @@ public class ItemEntryRepository{
         return uniqueItemNameList;
     }
 
-    public int[] updateLootsheet(List<ItemEntry> itemEntryList){
-        return this.jdbcTemplate.batchUpdate(
-                "update lootsheet set hasItem = ? where charId = ? and itemName = ? and prioValue = ?",
-                new BatchPreparedStatementSetter() {
-                    @Override
-                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setBoolean(1, itemEntryList.get(i).getHasItem());
-                        ps.setInt(2, itemEntryList.get(i).getCharId());
-                        ps.setString(3, itemEntryList.get(i).getItemName());
-                        ps.setInt(4, itemEntryList.get(i).getPrioValue());
-                    }
-
-                    @Override
-                    public int getBatchSize() {
-                        return itemEntryList.size();
-                    }
-                });
+    public void updateLootsheet(ItemEntry itemEntry){
+        jdbcTemplate.update("update lootsheet set hasItem = ? where charId = ? and itemName = ? and prioValue = ? ", itemEntry.getHasItem(), itemEntry.getCharId(), itemEntry.getItemName(), itemEntry.getPrioValue());
     }
 }

@@ -34,7 +34,7 @@ public class AttendanceRepository {
 
     public List<String> getUniqueRaidDates(){
         List<String> uniqueRaidDatesList = new ArrayList<>();
-        uniqueRaidDatesList.addAll(jdbcTemplate.queryForList("select distinct raidDate from attendance;", String.class));
+        uniqueRaidDatesList.addAll(jdbcTemplate.queryForList("select distinct raidDate from attendance order by id desc;", String.class));
         return uniqueRaidDatesList;
     }
 
@@ -44,21 +44,27 @@ public class AttendanceRepository {
         return uniquePlayerNames;
     }
 
-    public int[] updateAttendance(List<Attendance> attendanceList){
-        return this.jdbcTemplate.batchUpdate(
-                "update attendance set didAttend = ? where charId = ? and raidDate = ?",
+    public void updateAttendance(Attendance attendance){
+        jdbcTemplate.update("update attendance set didAttend = ? where charId = ? and raidDate = ?", attendance.getDidAttend(), attendance.getCharId(), attendance.getRaidDate());
+
+    }
+
+    public int[] addRaidDate(List<Attendance> attendanceList){
+        return jdbcTemplate.batchUpdate("insert into attendance values (DEFAULT, ?, ?, true)",
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setBoolean(1, attendanceList.get(i).getDidAttend());
-                        ps.setInt(2, attendanceList.get(i).getCharId());
-                        ps.setString(3, attendanceList.get(i).getRaidDate());
+                        ps.setInt(1,attendanceList.get(i).getCharId());
+                        ps.setString(2, attendanceList.get(i).getRaidDate());
                     }
 
                     @Override
-                    public int getBatchSize() {
-                        return attendanceList.size();
-                    }
+                    public int getBatchSize() { return attendanceList.size(); }
                 });
+    }
+
+    public boolean removeRaidDate(String raidDate){
+        Object[] args = new Object[] {raidDate};
+        return jdbcTemplate.update("delete from attendance where raidDate = ?", args) == 1;
     }
 }

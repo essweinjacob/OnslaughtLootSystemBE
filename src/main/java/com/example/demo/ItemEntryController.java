@@ -26,7 +26,7 @@ public class ItemEntryController {
     }
 
     @PutMapping("/updateLootSheet")
-    public void updateLootsheet(@RequestBody List<ItemEntry> itemEntries){
-        itemEntryRepository.updateLootsheet(itemEntries);
+    public void updateLootsheet(@RequestBody ItemEntry itemEntry){
+        itemEntryRepository.updateLootsheet(itemEntry);
     }
 }
