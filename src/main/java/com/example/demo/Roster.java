@@ -11,9 +11,9 @@ public class Roster {
 
     @Column(name = "charName")
     private String charName;
-
     @Column(name="charClass")
     private String charClass;
+
 
     private int attendCount;
 
