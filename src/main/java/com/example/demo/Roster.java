@@ -13,6 +13,8 @@ public class Roster {
     private String charName;
     @Column(name="charClass")
     private String charClass;
+    @Column(name="notes")
+    private String notes;
 
 
     private int attendCount;
@@ -56,5 +58,13 @@ public class Roster {
 
     public void setAttendCount(int attendCount) {
         this.attendCount = attendCount;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

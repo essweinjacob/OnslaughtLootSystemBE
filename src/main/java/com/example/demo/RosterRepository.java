@@ -34,4 +34,13 @@ public class RosterRepository {
         uniqueClassList.addAll(jdbcTemplate.queryForList("select distinct charClass from roster;", String.class));
         return uniqueClassList;
     }
+
+    public String getNoteByName(String charName) {
+        return (String) jdbcTemplate.queryForObject("select notes from roster where charName = ?", new Object[] {charName}, String.class);
+    }
+
+    public void updateNote(Roster roster){
+        System.out.println(roster.getNotes() + roster.getCharName());
+        jdbcTemplate.update("update roster set notes = ? where charName = ?", roster.getNotes(), roster.getCharName());
+    }
 }

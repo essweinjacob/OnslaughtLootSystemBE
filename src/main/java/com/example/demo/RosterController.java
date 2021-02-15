@@ -21,4 +21,15 @@ public class RosterController {
     public List<String> getUniqueClassNames(){
         return rosterRepository.getUniqueClassNames();
     }
+
+    @GetMapping("/getNoteByName/{charName}")
+    @ResponseBody
+    public String getNoteByName(@PathVariable("charName") String charName) {
+        return rosterRepository.getNoteByName(charName);
+    }
+
+    @PutMapping("/updateNote")
+    public void updateNote(@RequestBody Roster roster){
+        rosterRepository.updateNote(roster);
+    }
 }
