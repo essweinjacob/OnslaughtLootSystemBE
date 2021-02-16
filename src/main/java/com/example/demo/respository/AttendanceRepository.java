@@ -68,4 +68,21 @@ public class AttendanceRepository {
         Object[] args = new Object[] {raidDate};
         return jdbcTemplate.update("delete from attendance where raidDate = ?", args) == 1;
     }
+
+    public int[] addRaidDatesForNewUser(List<Attendance> attendanceList){
+        String sql = "insert into attendance values(DEFAULT, ?, ?, false)";
+        return jdbcTemplate.batchUpdate(sql,
+                new BatchPreparedStatementSetter() {
+                    @Override
+                    public void setValues(PreparedStatement ps, int i) throws SQLException {
+                        ps.setInt(1, attendanceList.get(i).getCharId());
+                        ps.setString(2, attendanceList.get(i).getRaidDate());
+                    }
+
+                    @Override
+                    public int getBatchSize() {
+                        return attendanceList.size();
+                    }
+                });
+    }
 }

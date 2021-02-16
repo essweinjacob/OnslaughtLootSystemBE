@@ -19,13 +19,15 @@ public class Roster {
     private String password;
     @Column(name="perms")
     private String perms;
+    @Column(name="role")
+    private String role;
 
 
     private int attendCount;
 
     public Roster(){}
 
-    public Roster(String charName, String charClass, int attendCount, String notes, String password, String perms) {
+    public Roster(String charName, String charClass, int attendCount, String notes, String password, String perms, String role) {
         super();
         this.charName = charName;
         this.charClass = charClass;
@@ -33,6 +35,7 @@ public class Roster {
         this.notes = notes;
         this.password = password;
         this.perms = perms;
+        this.role = role;
     }
 
     public int getCharId() {
@@ -89,5 +92,13 @@ public class Roster {
 
     public void setPerms(String perms) {
         this.perms = perms;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

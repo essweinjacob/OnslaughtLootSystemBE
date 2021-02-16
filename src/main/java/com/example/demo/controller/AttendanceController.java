@@ -42,4 +42,10 @@ public class AttendanceController {
     public void removeRateDate(@RequestBody String raidDate){
         attendanceRepository.removeRaidDate(raidDate);
     }
+
+    @PutMapping("/addAttendanceForNewUser")
+    public boolean addRaidDatesForNewUser(@RequestBody List<Attendance> attendance){
+        attendanceRepository.addRaidDatesForNewUser(attendance);
+        return true;
+    }
 }
