@@ -14,8 +14,6 @@ public class AttendanceController {
     @Autowired
     private AttendanceRepository attendanceRepository;
 
-
-
     @GetMapping("/getAttendance")
     public List<Attendance> getAllAttendanceEntries() {
         return attendanceRepository.getAllAttendanceEntries();

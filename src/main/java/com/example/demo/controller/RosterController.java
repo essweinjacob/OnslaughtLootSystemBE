@@ -14,6 +14,17 @@ public class RosterController {
     @Autowired
     RosterRepository rosterRepository;
 
+    @PostMapping("/auth")
+    public boolean loginAuth(@RequestBody Roster roster){
+        System.out.println(roster.getCharName());
+        return rosterRepository.loginAuth(roster);
+    }
+
+    @PostMapping("/roleAuth")
+    public boolean permsAuth(@RequestBody Roster roster){
+        return rosterRepository.roleAuth(roster);
+    }
+
     @GetMapping("/getAllRosterEntities")
     public List<Roster> getAllEntities(){
         return rosterRepository.getAllEntities();
