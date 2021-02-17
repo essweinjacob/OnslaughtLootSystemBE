@@ -55,4 +55,9 @@ public class RosterController {
     public boolean removeUser(@RequestBody String charName) {
         return rosterRepository.removeUser(charName);
     }
+
+    @PutMapping("/changePassword")
+    public boolean changePassword(@RequestBody Roster roster){
+        return rosterRepository.changePassword(roster);
+    }
 }

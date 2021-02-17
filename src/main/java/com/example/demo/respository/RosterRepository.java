@@ -96,4 +96,16 @@ public class RosterRepository {
             return false;
         }
     }
+
+    public boolean changePassword(Roster roster){
+        String sql = "select count(*) from `roster` where BINARY `charName` = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, roster.getCharName());
+        if(count != null && count > 0){
+            sql = "update roster set password = ? where charName = ?";
+            jdbcTemplate.update(sql, roster.getPassword(), roster.getCharName());
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
