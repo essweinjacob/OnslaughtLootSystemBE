@@ -50,4 +50,9 @@ public class RosterController {
     public int addNewUser(@RequestBody Roster roster){
         return rosterRepository.addNewUser(roster);
     }
+
+    @PutMapping("/removeUserFromRoster")
+    public boolean removeUser(@RequestBody String charName) {
+        return rosterRepository.removeUser(charName);
+    }
 }

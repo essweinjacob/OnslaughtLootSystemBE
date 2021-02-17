@@ -78,4 +78,22 @@ public class RosterRepository {
             return -1;
         }
     }
+
+    public boolean removeUser(String user){
+        String sql = "select count(*) from `roster` where BINARY `charName` = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, user);
+        if(count != null && count > 0){
+            sql = "select charId from roster where charName = ?";
+            int id = jdbcTemplate.queryForObject(sql, new Object[]{user}, Integer.class);
+            sql = "delete from roster where charId = ?";
+            jdbcTemplate.update(sql, id);
+            sql = "delete from attendance where charId = ?";
+            jdbcTemplate.update(sql, id);
+            sql = "delete from lootsheet where charId = ?";
+            jdbcTemplate.update(sql, id);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
