@@ -16,7 +16,7 @@ import com.example.demo.model.JwtResponse;
 import com.example.demo.model.UserDTO;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class JwtAuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
