@@ -42,7 +42,6 @@ public class RosterRepository {
     }
 
     public void updateNote(Roster roster){
-        System.out.println(roster.getNotes() + roster.getCharName());
         jdbcTemplate.update("update roster set notes = ? where charName = ?", roster.getNotes(), roster.getCharName());
     }
 

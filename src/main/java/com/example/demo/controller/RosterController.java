@@ -16,7 +16,6 @@ public class RosterController {
 
     @PostMapping("/auth")
     public boolean loginAuth(@RequestBody Roster roster){
-        System.out.println(roster.getCharName());
         return rosterRepository.loginAuth(roster);
     }
 

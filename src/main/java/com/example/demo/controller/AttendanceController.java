@@ -24,7 +24,6 @@ public class AttendanceController {
 
     @GetMapping("/getUniquePlayerNames")
     public List <String> getUniquePlayerNames() {
-        System.out.println("1");
         return attendanceRepository.getUniquePlayerNames();
     }
 

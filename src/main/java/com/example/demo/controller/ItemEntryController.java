@@ -34,7 +34,6 @@ public class ItemEntryController {
 
     @PutMapping("/updatePrioValue")
     public void updatePrioValue(@RequestBody ItemEntry itemEntry){
-        System.out.println(itemEntry.getPrioValue());
         itemEntryRepository.updatePrioValue(itemEntry);
     }
 }

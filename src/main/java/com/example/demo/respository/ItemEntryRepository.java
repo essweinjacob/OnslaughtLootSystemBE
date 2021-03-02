@@ -42,7 +42,6 @@ public class ItemEntryRepository{
     }
 
     public void updatePrioValue(ItemEntry itemEntry){
-        System.out.println(itemEntry.getPrioValue() + " " + itemEntry.getCharId() + " " + itemEntry.getItemName() + " " + itemEntry.getHasItem());
         jdbcTemplate.update("update lootsheet set prioValue = ? where charId = ? and itemName = ? and hasItem = ? ", itemEntry.getPrioValue(), itemEntry.getCharId(), itemEntry.getItemName(), itemEntry.getHasItem());
     }
 }
