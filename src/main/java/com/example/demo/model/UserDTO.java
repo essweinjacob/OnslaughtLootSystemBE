@@ -3,6 +3,7 @@ package com.example.demo.model;
 public class UserDTO {
     private String username;
     private String password;
+    private String perms;
 
     public String getUsername() {
         return username;
@@ -18,5 +19,13 @@ public class UserDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPerms() {
+        return perms;
+    }
+
+    public void setPerms(String perms) {
+        this.perms = perms;
     }
 }
