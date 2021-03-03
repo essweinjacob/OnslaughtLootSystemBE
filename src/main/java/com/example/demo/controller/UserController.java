@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
-    public boolean  changePassword(@RequestBody String changePasswordString){
+    public boolean changePassword(@RequestBody String changePasswordString){
         String[] data = changePasswordString.split(",");
         String username = data[0];
         username = username.replace("\"username\":\"", "");
@@ -48,5 +48,13 @@ public class UserController {
         }else{
             return false;
         }
+    }
+
+    @PutMapping("/addNewUser")
+    public boolean addNewUser(@RequestBody User user){
+        if(userRepositoryRoleCheck.addNewUser(user)){
+            return true;
+        }
+        return false;
     }
 }

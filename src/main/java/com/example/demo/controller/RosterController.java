@@ -35,7 +35,7 @@ public class RosterController {
         rosterRepository.updateNote(roster);
     }
 
-    @PutMapping("/addNewUser")
+    @PutMapping("/addNewUserRoster")
     public int addNewUser(@RequestBody Roster roster){
         return rosterRepository.addNewUser(roster);
     }

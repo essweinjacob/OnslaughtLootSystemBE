@@ -48,8 +48,8 @@ public class RosterRepository {
         String sql = "select count(*) from `roster` where BINARY `charName` = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, roster.getCharName());
         if(count != null && count == 0){
-            sql = "insert into roster values(DEFAULT, ?, ?, ?, ?, ?, ?)";
-            jdbcTemplate.update(sql, roster.getCharName(), roster.getCharClass(), roster.getPerms(), roster.getPassword(), roster.getNotes(), roster.getRole());
+            sql = "insert into roster values(DEFAULT, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, roster.getCharName(), roster.getCharClass(), roster.getNotes(), roster.getRole());
             sql = "select charId from roster where charName = ?";
             return jdbcTemplate.queryForObject(sql, new Object[]{roster.getCharName()}, Integer.class);
         }else{
