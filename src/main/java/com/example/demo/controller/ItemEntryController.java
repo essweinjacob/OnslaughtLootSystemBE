@@ -36,4 +36,9 @@ public class ItemEntryController {
     public void updatePrioValue(@RequestBody ItemEntry itemEntry){
         itemEntryRepository.updatePrioValue(itemEntry);
     }
+
+    @GetMapping("/cleanLootSheet")
+    public void cleanLootSheet(){
+        itemEntryRepository.cleanLootSheet();
+    }
 }

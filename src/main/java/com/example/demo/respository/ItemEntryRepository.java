@@ -44,4 +44,9 @@ public class ItemEntryRepository{
     public void updatePrioValue(ItemEntry itemEntry){
         jdbcTemplate.update("update lootsheet set prioValue = ? where charId = ? and itemName = ? and hasItem = ? ", itemEntry.getPrioValue(), itemEntry.getCharId(), itemEntry.getItemName(), itemEntry.getHasItem());
     }
+
+    public void cleanLootSheet(){
+        String sql = "delete from lootsheet where hasItem = true";
+        jdbcTemplate.update(sql);
+    }
 }
