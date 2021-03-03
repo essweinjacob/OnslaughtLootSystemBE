@@ -17,15 +17,14 @@ public class RosterRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<Roster> getAllEntities(){
-        return jdbcTemplate.query("select roster.charId, charName, charClass, perms, count(*) from roster join attendance where roster.charId = attendance.charId and didAttend = 1 group by charName;", new RowMapper<Roster>() {
+        return jdbcTemplate.query("select roster.charId, charName, charClass, count(*) from roster join attendance where roster.charId = attendance.charId and didAttend = 1 group by charName;", new RowMapper<Roster>() {
             @Override
             public Roster mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Roster r = new Roster();
                 r.setCharId(rs.getInt(1));
                 r.setCharName(rs.getString(2));
                 r.setCharClass(rs.getString(3));
-                r.setPerms((rs.getString(4)));
-                r.setAttendCount(rs.getInt(5));
+                r.setAttendCount(rs.getInt(4));
                 return r;
             }
         });
@@ -43,26 +42,6 @@ public class RosterRepository {
 
     public void updateNote(Roster roster){
         jdbcTemplate.update("update roster set notes = ? where charName = ?", roster.getNotes(), roster.getCharName());
-    }
-
-    public boolean loginAuth(Roster roster){
-        String sql = "select count(*) from `roster` where BINARY `charName` = ? and BINARY `password` = ?";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, roster.getCharName(), roster.getPassword());
-        if(count != null && count > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    public boolean roleAuth(Roster roster){
-        String sql = "select count(*) from `roster` where BINARY `charName` = ? and perms = 'admin'";
-        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, roster.getCharName());
-        if(count != null && count > 0){
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public int addNewUser(Roster roster){

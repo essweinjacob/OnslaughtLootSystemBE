@@ -14,16 +14,6 @@ public class RosterController {
     @Autowired
     RosterRepository rosterRepository;
 
-    @PostMapping("/auth")
-    public boolean loginAuth(@RequestBody Roster roster){
-        return rosterRepository.loginAuth(roster);
-    }
-
-    @PostMapping("/roleAuth")
-    public boolean permsAuth(@RequestBody Roster roster){
-        return rosterRepository.roleAuth(roster);
-    }
-
     @GetMapping("/getAllRosterEntities")
     public List<Roster> getAllEntities(){
         return rosterRepository.getAllEntities();
@@ -53,10 +43,5 @@ public class RosterController {
     @PutMapping("/removeUserFromRoster")
     public boolean removeUser(@RequestBody String charName) {
         return rosterRepository.removeUser(charName);
-    }
-
-    @PutMapping("/changePassword")
-    public boolean changePassword(@RequestBody Roster roster){
-        return rosterRepository.changePassword(roster);
     }
 }

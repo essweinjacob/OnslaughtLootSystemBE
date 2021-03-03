@@ -19,7 +19,6 @@ public class User {
     @Column
     private String perms;
 
-
     public String getUsername() {
         return username;
     }
