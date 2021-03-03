@@ -69,6 +69,8 @@ public class RosterRepository {
             jdbcTemplate.update(sql, id);
             sql = "delete from lootsheet where charId = ?";
             jdbcTemplate.update(sql, id);
+            sql = "delete from users where username = ?";
+            jdbcTemplate.update(sql, user);
             return true;
         }else{
             return false;
