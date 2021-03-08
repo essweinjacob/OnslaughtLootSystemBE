@@ -12,8 +12,6 @@ public class ItemEntry {
 
     @Column(name="charName")
     private String charName;
-    @Column(name="charId")
-    private int charId;
     @Column(name="itemName")
     private String itemName;
     @Column(name="prioValue")
@@ -62,13 +60,5 @@ public class ItemEntry {
 
     public void setHasItem(boolean hasItem) {
         this.hasItem = hasItem;
-    }
-
-    public int getCharId() {
-        return charId;
-    }
-
-    public void setCharId(int charId) {
-        this.charId = charId;
     }
 }

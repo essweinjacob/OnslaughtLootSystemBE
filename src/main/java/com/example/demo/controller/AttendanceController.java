@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.AttendanceItemEntry;
 import com.example.demo.respository.AttendanceRepository;
 import com.example.demo.model.Attendance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class AttendanceController {
     public List<Attendance> getAllAttendanceEntries() {
         return attendanceRepository.getAllAttendanceEntries();
     }
+
+    @GetMapping("/getItemEntryAttendance")
+    public List<AttendanceItemEntry> getAttendanceItemEnty() { return attendanceRepository.getAttendanceItemEntries(); }
 
     @GetMapping("/getUniqueRaidDates")
     public List <String> getUniqueRaidDates() { return attendanceRepository.getUniqueRaidDates(); }

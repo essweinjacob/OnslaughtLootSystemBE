@@ -17,15 +17,14 @@ public class ItemEntryRepository{
     JdbcTemplate jdbcTemplate;
 
     public List<ItemEntry> getAllEntries(){
-        return jdbcTemplate.query("select charName, roster.charId, itemName, prioValue, hasItem from lootsheet left join roster ON lootsheet.charID = roster.charID order by hasItem, prioValue DESC;", new RowMapper<ItemEntry>(){
+        return jdbcTemplate.query("select charName, itemName, prioValue, hasItem from lootsheet order by hasItem, prioValue DESC;", new RowMapper<ItemEntry>(){
             @Override
             public ItemEntry mapRow(ResultSet rs, int rn) throws SQLException{
                 ItemEntry ie = new ItemEntry();
                 ie.setCharName(rs.getString(1));
-                ie.setCharId(rs.getInt(2));
-                ie.setItemName(rs.getString(3));
-                ie.setPrioValue(rs.getInt(4));
-                ie.setHasItem(rs.getBoolean(5));
+                ie.setItemName(rs.getString(2));
+                ie.setPrioValue(rs.getInt(3));
+                ie.setHasItem(rs.getBoolean(4));
                 return ie;
             }
         });
@@ -38,11 +37,11 @@ public class ItemEntryRepository{
     }
 
     public void updateLootsheet(ItemEntry itemEntry){
-        jdbcTemplate.update("update lootsheet set hasItem = ? where charId = ? and itemName = ? and prioValue = ? ", itemEntry.getHasItem(), itemEntry.getCharId(), itemEntry.getItemName(), itemEntry.getPrioValue());
+        jdbcTemplate.update("update lootsheet set hasItem = ? where charName = ? and itemName = ? and prioValue = ? ", itemEntry.getHasItem(), itemEntry.getCharName(), itemEntry.getItemName(), itemEntry.getPrioValue());
     }
 
     public void updatePrioValue(ItemEntry itemEntry){
-        jdbcTemplate.update("update lootsheet set prioValue = ? where charId = ? and itemName = ? and hasItem = ? ", itemEntry.getPrioValue(), itemEntry.getCharId(), itemEntry.getItemName(), itemEntry.getHasItem());
+        jdbcTemplate.update("update lootsheet set prioValue = ? where charName = ? and itemName = ? and hasItem = ? ", itemEntry.getPrioValue(), itemEntry.getCharName(), itemEntry.getItemName(), itemEntry.getHasItem());
     }
 
     public void cleanLootSheet(){

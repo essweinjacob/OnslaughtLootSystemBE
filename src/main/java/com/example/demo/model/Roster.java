@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Roster {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int charId;
+    private int id;
 
     @Column(name = "charName")
     private String charName;
@@ -15,36 +15,18 @@ public class Roster {
     private String charClass;
     @Column(name="notes")
     private String notes;
-    @Column(name="password")
-    private String password;
-    @Column(name="perms")
-    private String perms;
-    @Column(name="role")
-    private String role;
 
 
     private int attendCount;
 
     public Roster(){}
 
-    public Roster(String charName, String charClass, int attendCount, String notes, String password, String perms, String role) {
+    public Roster(String charName, String charClass, String notes) {
         super();
         this.charName = charName;
         this.charClass = charClass;
-        this.attendCount = attendCount;
-        this.notes = notes;
-        this.password = password;
-        this.perms = perms;
-        this.role = role;
     }
 
-    public int getCharId() {
-        return charId;
-    }
-
-    public void setCharId(int charId) {
-        this.charId = charId;
-    }
 
     public String getCharName() {
         return charName;
@@ -76,29 +58,5 @@ public class Roster {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPerms() {
-        return perms;
-    }
-
-    public void setPerms(String perms) {
-        this.perms = perms;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 }

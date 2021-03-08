@@ -10,12 +10,8 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="charId")
-    private int charId;
     @Column(name="charName")
     private String charName;
-    @Column(name="charClass")
-    private String charClass;
     @Column(name="raidDate")
     private String raidDate;
     @Column(name="didAttend")
@@ -23,11 +19,9 @@ public class Attendance {
 
     public Attendance() {}
 
-    public Attendance(int charId, String charName, String charClass, String raidDate, boolean didAttend){
+    public Attendance(String charName, String raidDate, boolean didAttend){
         super();
-        this.charId = charId;
         this.charName = charName;
-        this.charClass = charClass;
         this.raidDate = raidDate;
         this.didAttend = didAttend;
     }
@@ -39,14 +33,6 @@ public class Attendance {
 
     public void setCharName(String charName) {
         this.charName = charName;
-    }
-
-    public String getCharClass() {
-        return charClass;
-    }
-
-    public void setCharClass(String charClass) {
-        this.charClass = charClass;
     }
 
     public String getRaidDate() {
@@ -63,14 +49,6 @@ public class Attendance {
 
     public void setDidAttend(boolean didAttend) {
         this.didAttend = didAttend;
-    }
-
-    public int getCharId() {
-        return charId;
-    }
-
-    public void setCharId(int charId) {
-        this.charId = charId;
     }
 
     public long getId() {

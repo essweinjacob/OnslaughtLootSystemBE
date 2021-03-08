@@ -1,6 +1,7 @@
 package com.example.demo.respository;
 
 import com.example.demo.model.Attendance;
+import com.example.demo.model.AttendanceItemEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,15 +20,25 @@ public class AttendanceRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<Attendance> getAllAttendanceEntries(){
-                return jdbcTemplate.query("select attendance.charId, charName, charClass, raidDate, didAttend from attendance left join roster on attendance.charID = roster.charId order by roster.charClass;", new RowMapper<Attendance>(){
+        return jdbcTemplate.query("select charName, raidDate, didAttend from attendance", new RowMapper<Attendance>(){
             @Override
             public Attendance mapRow(ResultSet rs, int rn) throws SQLException {
                 Attendance a = new Attendance();
-                a.setCharId(rs.getInt(1));
-                a.setCharName(rs.getString(2));
-                a.setCharClass(rs.getString(3));
-                a.setRaidDate(rs.getString(4));
-                a.setDidAttend(rs.getBoolean(5));
+                a.setCharName(rs.getString(1));
+                a.setRaidDate(rs.getString(2));
+                a.setDidAttend(rs.getBoolean(3));
+                return a;
+            }
+        });
+    }
+
+    public List<AttendanceItemEntry>getAttendanceItemEntries() {
+        return jdbcTemplate.query("select charName, count(*) from attendance where didAttend = 1 group by charName", new RowMapper<AttendanceItemEntry>(){
+            @Override
+            public AttendanceItemEntry mapRow(ResultSet rs, int rn) throws SQLException {
+                AttendanceItemEntry a = new AttendanceItemEntry();
+                a.setCharName(rs.getString(1));
+                a.setRaidsAttended(rs.getInt(2));
                 return a;
             }
         });
@@ -35,18 +46,18 @@ public class AttendanceRepository {
 
     public List<String> getUniqueRaidDates(){
         List<String> uniqueRaidDatesList = new ArrayList<>();
-        uniqueRaidDatesList.addAll(jdbcTemplate.queryForList("select distinct raidDate from attendance order by id desc;", String.class));
+        uniqueRaidDatesList.addAll(jdbcTemplate.queryForList("select distinct raidDate from attendance group by raidDate order by max(id) desc;", String.class));
         return uniqueRaidDatesList;
     }
 
     public List<String> getUniquePlayerNames(){
         List<String> uniquePlayerNames = new ArrayList<>();
-        uniquePlayerNames.addAll(jdbcTemplate.queryForList("select distinct charName from roster;", String.class));
+        uniquePlayerNames.addAll(jdbcTemplate.queryForList("select distinct charName from attendance;", String.class));
         return uniquePlayerNames;
     }
 
     public void updateAttendance(Attendance attendance){
-        jdbcTemplate.update("update attendance set didAttend = ? where charId = ? and raidDate = ?", attendance.getDidAttend(), attendance.getCharId(), attendance.getRaidDate());
+        jdbcTemplate.update("update attendance set didAttend = ? where charName = ? and raidDate = ?", attendance.getDidAttend(), attendance.getCharName(), attendance.getRaidDate());
 
     }
 
@@ -55,7 +66,7 @@ public class AttendanceRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setInt(1,attendanceList.get(i).getCharId());
+                        ps.setString(1,attendanceList.get(i).getCharName());
                         ps.setString(2, attendanceList.get(i).getRaidDate());
                     }
 
@@ -75,7 +86,7 @@ public class AttendanceRepository {
                 new BatchPreparedStatementSetter() {
                     @Override
                     public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setInt(1, attendanceList.get(i).getCharId());
+                        ps.setString(1, attendanceList.get(i).getCharName());
                         ps.setString(2, attendanceList.get(i).getRaidDate());
                     }
 
